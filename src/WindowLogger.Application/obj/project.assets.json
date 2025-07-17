@@ -682,6 +682,32 @@
         "build": {
           "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
+      },
+      "Ulid/1.3.4": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Ulid.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Ulid.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WindowLogger.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Ulid": "1.3.4"
+        },
+        "compile": {
+          "bin/placeholder/WindowLogger.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WindowLogger.Domain.dll": {}
+        }
       }
     }
   },
@@ -1715,12 +1741,40 @@
         "system.text.json.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Ulid/1.3.4": {
+      "sha512": "6IaGquwjjfW+BoHSV844y12Uy2kxbboYNmsibxr2lotcSPAA3LKy1CKcAQ8JOdAdL4xMoDNXA1oxG41w7fbr6Q==",
+      "type": "package",
+      "path": "ulid/1.3.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/net6.0/Ulid.dll",
+        "lib/net6.0/Ulid.xml",
+        "lib/net7.0/Ulid.dll",
+        "lib/net7.0/Ulid.xml",
+        "lib/net8.0/Ulid.dll",
+        "lib/net8.0/Ulid.xml",
+        "lib/netstandard2.0/Ulid.dll",
+        "lib/netstandard2.0/Ulid.xml",
+        "lib/netstandard2.1/Ulid.dll",
+        "lib/netstandard2.1/Ulid.xml",
+        "ulid.1.3.4.nupkg.sha512",
+        "ulid.nuspec"
+      ]
+    },
+    "WindowLogger.Domain/1.0.0": {
+      "type": "project",
+      "path": "../WindowLogger.Domain/WindowLogger.Domain.csproj",
+      "msbuildProject": "../WindowLogger.Domain/WindowLogger.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "Microsoft.Extensions.Hosting >= 9.0.7",
-      "Microsoft.Extensions.Logging >= 9.0.7"
+      "Microsoft.Extensions.Logging >= 9.0.7",
+      "WindowLogger.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1747,7 +1801,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/WindowLogger.Domain.csproj": {
+              "projectPath": "/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/WindowLogger.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3TzfyuNUEc7rYZtcgoo22xsMF8Q6IPH4M+OCeqfgdJQJmYaw39Dai9oFepTTnayvvgTCzqAIRIURmafJueuRKQ==",
+  "dgSpecHash": "yn6ViCm98Zg4mFz9vMKLbDi74lrKUpZnDyXY+SlCBvKn+RE+UaSo5rt+x+Ggbeu2E1OvV4OonTobqL4pc7GqfA==",
   "success": true,
   "projectFilePath": "/Users/lihs/workspace/window-logger/src/WindowLogger.Application/WindowLogger.Application.csproj",
   "expectedPackageFiles": [
@@ -35,7 +35,8 @@
     "/Users/lihs/.nuget/packages/system.diagnostics.eventlog/9.0.7/system.diagnostics.eventlog.9.0.7.nupkg.sha512",
     "/Users/lihs/.nuget/packages/system.io.pipelines/9.0.7/system.io.pipelines.9.0.7.nupkg.sha512",
     "/Users/lihs/.nuget/packages/system.text.encodings.web/9.0.7/system.text.encodings.web.9.0.7.nupkg.sha512",
-    "/Users/lihs/.nuget/packages/system.text.json/9.0.7/system.text.json.9.0.7.nupkg.sha512"
+    "/Users/lihs/.nuget/packages/system.text.json/9.0.7/system.text.json.9.0.7.nupkg.sha512",
+    "/Users/lihs/.nuget/packages/ulid/1.3.4/ulid.1.3.4.nupkg.sha512"
   ],
   "logs": []
 }

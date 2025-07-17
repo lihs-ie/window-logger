@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowLogger.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowLogger.Presentation", "src\WindowLogger.Presentation\WindowLogger.Presentation.csproj", "{3DB9A855-FD50-4F7E-8389-99D1647C2615}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowLogger.Application.Tests", "tests\WindowLogger.Application.Tests\WindowLogger.Application.Tests.csproj", "{8E235473-0FA2-4BB9-AD62-949BF06650F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{3DB9A855-FD50-4F7E-8389-99D1647C2615}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DB9A855-FD50-4F7E-8389-99D1647C2615}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DB9A855-FD50-4F7E-8389-99D1647C2615}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E235473-0FA2-4BB9-AD62-949BF06650F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E235473-0FA2-4BB9-AD62-949BF06650F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E235473-0FA2-4BB9-AD62-949BF06650F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E235473-0FA2-4BB9-AD62-949BF06650F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D76ABAB7-9141-4BBB-9AF5-DFE696A9CA3A} = {04517994-702C-47B7-B3F9-1793EA940396}
@@ -53,5 +59,6 @@ Global
 		{7008576E-F76D-4C87-88EC-A7629A5E77F9} = {04517994-702C-47B7-B3F9-1793EA940396}
 		{A0961C6A-B6B4-4AE1-B003-4CEC696ECFEE} = {04517994-702C-47B7-B3F9-1793EA940396}
 		{3DB9A855-FD50-4F7E-8389-99D1647C2615} = {04517994-702C-47B7-B3F9-1793EA940396}
+		{8E235473-0FA2-4BB9-AD62-949BF06650F2} = {C64435B0-EC23-4C7E-900A-9F87BE77260C}
 	EndGlobalSection
 EndGlobal

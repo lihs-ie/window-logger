@@ -24,3 +24,6 @@
 /Users/lihs/workspace/window-logger/src/WindowLogger.Application/obj/Debug/net8.0/refint/WindowLogger.Application.dll
 /Users/lihs/workspace/window-logger/src/WindowLogger.Application/obj/Debug/net8.0/WindowLogger.Application.pdb
 /Users/lihs/workspace/window-logger/src/WindowLogger.Application/obj/Debug/net8.0/ref/WindowLogger.Application.dll
+/Users/lihs/workspace/window-logger/src/WindowLogger.Application/bin/Debug/net8.0/WindowLogger.Domain.dll
+/Users/lihs/workspace/window-logger/src/WindowLogger.Application/bin/Debug/net8.0/WindowLogger.Domain.pdb
+/Users/lihs/workspace/window-logger/src/WindowLogger.Application/obj/Debug/net8.0/WindowLogger.Application.csproj.CopyComplete
