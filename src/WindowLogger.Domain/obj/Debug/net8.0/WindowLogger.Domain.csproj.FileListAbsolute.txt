@@ -1,0 +1,13 @@
+/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/bin/Debug/net8.0/WindowLogger.Domain.deps.json
+/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/bin/Debug/net8.0/WindowLogger.Domain.dll
+/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/bin/Debug/net8.0/WindowLogger.Domain.pdb
+/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/obj/Debug/net8.0/WindowLogger.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/obj/Debug/net8.0/WindowLogger.Domain.AssemblyInfoInputs.cache
+/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/obj/Debug/net8.0/WindowLogger.Domain.AssemblyInfo.cs
+/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/obj/Debug/net8.0/WindowLogger.Domain.csproj.CoreCompileInputs.cache
+/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/obj/Debug/net8.0/WindowLogger.Domain.sourcelink.json
+/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/obj/Debug/net8.0/WindowLogger.Domain.dll
+/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/obj/Debug/net8.0/refint/WindowLogger.Domain.dll
+/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/obj/Debug/net8.0/WindowLogger.Domain.pdb
+/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/obj/Debug/net8.0/ref/WindowLogger.Domain.dll
+/Users/lihs/workspace/window-logger/src/WindowLogger.Domain/obj/Debug/net8.0/WindowLogger.Domain.csproj.AssemblyReference.cache

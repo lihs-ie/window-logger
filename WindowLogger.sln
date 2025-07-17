@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{04517994-702C-47B7-B3F9-1793EA940396}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowLogger.Domain", "src\WindowLogger.Domain\WindowLogger.Domain.csproj", "{D76ABAB7-9141-4BBB-9AF5-DFE696A9CA3A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C64435B0-EC23-4C7E-900A-9F87BE77260C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowLogger.Domain.Tests", "tests\WindowLogger.Domain.Tests\WindowLogger.Domain.Tests.csproj", "{5CAB1A36-693B-408B-867C-D0DA3993285D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowLogger.Application", "src\WindowLogger.Application\WindowLogger.Application.csproj", "{7008576E-F76D-4C87-88EC-A7629A5E77F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowLogger.Infrastructure", "src\WindowLogger.Infrastructure\WindowLogger.Infrastructure.csproj", "{A0961C6A-B6B4-4AE1-B003-4CEC696ECFEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowLogger.Presentation", "src\WindowLogger.Presentation\WindowLogger.Presentation.csproj", "{3DB9A855-FD50-4F7E-8389-99D1647C2615}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D76ABAB7-9141-4BBB-9AF5-DFE696A9CA3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D76ABAB7-9141-4BBB-9AF5-DFE696A9CA3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D76ABAB7-9141-4BBB-9AF5-DFE696A9CA3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D76ABAB7-9141-4BBB-9AF5-DFE696A9CA3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CAB1A36-693B-408B-867C-D0DA3993285D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CAB1A36-693B-408B-867C-D0DA3993285D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CAB1A36-693B-408B-867C-D0DA3993285D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CAB1A36-693B-408B-867C-D0DA3993285D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7008576E-F76D-4C87-88EC-A7629A5E77F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7008576E-F76D-4C87-88EC-A7629A5E77F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7008576E-F76D-4C87-88EC-A7629A5E77F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7008576E-F76D-4C87-88EC-A7629A5E77F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0961C6A-B6B4-4AE1-B003-4CEC696ECFEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0961C6A-B6B4-4AE1-B003-4CEC696ECFEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0961C6A-B6B4-4AE1-B003-4CEC696ECFEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0961C6A-B6B4-4AE1-B003-4CEC696ECFEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DB9A855-FD50-4F7E-8389-99D1647C2615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DB9A855-FD50-4F7E-8389-99D1647C2615}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DB9A855-FD50-4F7E-8389-99D1647C2615}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DB9A855-FD50-4F7E-8389-99D1647C2615}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D76ABAB7-9141-4BBB-9AF5-DFE696A9CA3A} = {04517994-702C-47B7-B3F9-1793EA940396}
+		{5CAB1A36-693B-408B-867C-D0DA3993285D} = {C64435B0-EC23-4C7E-900A-9F87BE77260C}
+		{7008576E-F76D-4C87-88EC-A7629A5E77F9} = {04517994-702C-47B7-B3F9-1793EA940396}
+		{A0961C6A-B6B4-4AE1-B003-4CEC696ECFEE} = {04517994-702C-47B7-B3F9-1793EA940396}
+		{3DB9A855-FD50-4F7E-8389-99D1647C2615} = {04517994-702C-47B7-B3F9-1793EA940396}
+	EndGlobalSection
+EndGlobal
