@@ -13,6 +13,7 @@
     <SourceRoot Include="/Users/lihs/.nuget/packages/" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.extensions.configuration.usersecrets/9.0.7/buildTransitive/net8.0/Microsoft.Extensions.Configuration.UserSecrets.props" Condition="Exists('$(NuGetPackageRoot)microsoft.extensions.configuration.usersecrets/9.0.7/buildTransitive/net8.0/Microsoft.Extensions.Configuration.UserSecrets.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.windows.sdk.win32metadata/61.0.15-preview/buildTransitive/netstandard1.0/Microsoft.Windows.SDK.Win32Metadata.props" Condition="Exists('$(NuGetPackageRoot)microsoft.windows.sdk.win32metadata/61.0.15-preview/buildTransitive/netstandard1.0/Microsoft.Windows.SDK.Win32Metadata.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.windows.wdk.win32metadata/0.12.8-experimental/buildTransitive/netstandard1.0/Microsoft.Windows.WDK.Win32Metadata.props" Condition="Exists('$(NuGetPackageRoot)microsoft.windows.wdk.win32metadata/0.12.8-experimental/buildTransitive/netstandard1.0/Microsoft.Windows.WDK.Win32Metadata.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.windows.sdk.win32docs/0.1.42-alpha/buildTransitive/netstandard1.0/Microsoft.Windows.SDK.Win32Docs.props" Condition="Exists('$(NuGetPackageRoot)microsoft.windows.sdk.win32docs/0.1.42-alpha/buildTransitive/netstandard1.0/Microsoft.Windows.SDK.Win32Docs.props')" />

@@ -22,3 +22,9 @@
 /Users/lihs/workspace/window-logger/src/WindowLogger.Infrastructure/obj/Debug/net8.0/refint/WindowLogger.Infrastructure.dll
 /Users/lihs/workspace/window-logger/src/WindowLogger.Infrastructure/obj/Debug/net8.0/WindowLogger.Infrastructure.pdb
 /Users/lihs/workspace/window-logger/src/WindowLogger.Infrastructure/obj/Debug/net8.0/ref/WindowLogger.Infrastructure.dll
+/Users/lihs/workspace/window-logger/src/WindowLogger.Infrastructure/obj/Debug/net8.0/WindowLogger.Infrastructure.csproj.AssemblyReference.cache
+/Users/lihs/workspace/window-logger/src/WindowLogger.Infrastructure/bin/Debug/net8.0/WindowLogger.Application.dll
+/Users/lihs/workspace/window-logger/src/WindowLogger.Infrastructure/bin/Debug/net8.0/WindowLogger.Domain.dll
+/Users/lihs/workspace/window-logger/src/WindowLogger.Infrastructure/bin/Debug/net8.0/WindowLogger.Application.pdb
+/Users/lihs/workspace/window-logger/src/WindowLogger.Infrastructure/bin/Debug/net8.0/WindowLogger.Domain.pdb
+/Users/lihs/workspace/window-logger/src/WindowLogger.Infrastructure/obj/Debug/net8.0/WindowLogger.Infrastructure.csproj.CopyComplete
