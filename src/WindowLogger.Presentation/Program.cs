@@ -8,6 +8,7 @@ using WindowLogger.Infrastructure.Exporters;
 using WindowLogger.Infrastructure.Repositories;
 using WindowLogger.Presentation.Services;
 using WindowLogger.Presentation.TrayIcon;
+using WindowLogger.Presentation.Forms;
 
 namespace WindowLogger.Presentation;
 
@@ -43,6 +44,7 @@ internal static class Program
             services.AddSingleton<FileHtmlExporter>();
 
             // Presentationレイヤー
+            services.AddSingleton<MainForm>();
             services.AddSingleton<WindowLoggerTrayIcon>();
             services.AddHostedService<WindowActivityBackgroundService>();
         });

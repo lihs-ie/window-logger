@@ -2,6 +2,7 @@ using System.ComponentModel;
 using Microsoft.Extensions.Logging;
 using WindowLogger.Application.Workflows;
 using WindowLogger.Infrastructure.Exporters;
+using WindowLogger.Presentation.Forms;
 
 namespace WindowLogger.Presentation.TrayIcon;
 
@@ -10,10 +11,12 @@ public sealed class WindowLoggerTrayIcon : IDisposable
     private readonly NotifyIcon _notifyIcon;
     private readonly WindowActivityWorkflow _workflow;
     private readonly FileHtmlExporter _htmlExporter;
+    private readonly MainForm _mainForm;
     private readonly ILogger<WindowLoggerTrayIcon> _logger;
     private bool _disposed;
 
     private const string TRAY_ICON_TEXT = "WindowLogger - アクティビティ記録中";
+    private const string CONTEXT_MENU_SHOW_MAIN = "メインウィンドウ表示(&M)";
     private const string CONTEXT_MENU_VIEW_LOG = "ログを表示(&V)";
     private const string CONTEXT_MENU_EXPORT_HTML = "HTML出力(&E)";
     private const string CONTEXT_MENU_EXIT = "終了(&X)";
@@ -21,10 +24,12 @@ public sealed class WindowLoggerTrayIcon : IDisposable
     public WindowLoggerTrayIcon(
         WindowActivityWorkflow workflow,
         FileHtmlExporter htmlExporter,
+        MainForm mainForm,
         ILogger<WindowLoggerTrayIcon> logger)
     {
         _workflow = workflow;
         _htmlExporter = htmlExporter;
+        _mainForm = mainForm;
         _logger = logger;
 
         _notifyIcon = new NotifyIcon();
@@ -43,6 +48,12 @@ public sealed class WindowLoggerTrayIcon : IDisposable
         // コンテキストメニューを作成
         var contextMenu = new ContextMenuStrip();
         
+        var showMainMenuItem = new ToolStripMenuItem(CONTEXT_MENU_SHOW_MAIN);
+        showMainMenuItem.Click += OnShowMainClicked;
+        contextMenu.Items.Add(showMainMenuItem);
+
+        contextMenu.Items.Add(new ToolStripSeparator());
+
         var viewLogMenuItem = new ToolStripMenuItem(CONTEXT_MENU_VIEW_LOG);
         viewLogMenuItem.Click += OnViewLogClicked;
         contextMenu.Items.Add(viewLogMenuItem);
@@ -59,8 +70,27 @@ public sealed class WindowLoggerTrayIcon : IDisposable
 
         _notifyIcon.ContextMenuStrip = contextMenu;
 
-        // ダブルクリックでログ表示
-        _notifyIcon.DoubleClick += OnViewLogClicked;
+        // ダブルクリックでメインウィンドウ表示
+        _notifyIcon.DoubleClick += OnShowMainClicked;
+    }
+
+    private void OnShowMainClicked(object? sender, EventArgs e)
+    {
+        try
+        {
+            _mainForm.Show();
+            _mainForm.WindowState = FormWindowState.Normal;
+            _mainForm.BringToFront();
+            _mainForm.Activate();
+            
+            _logger.LogDebug("Main window displayed from tray icon");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to show main window");
+            MessageBox.Show("メインウィンドウの表示中にエラーが発生しました。", "エラー", 
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 
     private void OnViewLogClicked(object? sender, EventArgs e)
