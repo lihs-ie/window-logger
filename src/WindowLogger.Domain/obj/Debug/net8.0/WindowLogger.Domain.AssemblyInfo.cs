@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WindowLogger.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a2f7a770ada05bd213289af1bfce48f19fa3afa7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5ed50a7f911c93acb8fb3848479e27952cf1f15a")]
 [assembly: System.Reflection.AssemblyProductAttribute("WindowLogger.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WindowLogger.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

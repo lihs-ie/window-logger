@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using Microsoft.Extensions.Logging;
 using WindowLogger.Application.Workflows;
 using WindowLogger.Infrastructure.Exporters;
@@ -111,8 +110,7 @@ public partial class MainForm : Form
 
     private void CreateToolStrip()
     {
-        _toolStrip = new ToolStrip();
-        _toolStrip.Dock = DockStyle.Top;
+        _toolStrip = new ToolStrip { Dock = DockStyle.Top };
 
         var exportButton = new ToolStripButton("HTMLエクスポート");
         exportButton.Click += OnExportClicked;
@@ -134,14 +132,16 @@ public partial class MainForm : Form
 
     private void CreateDataGridView()
     {
-        _activityGrid = new DataGridView();
-        _activityGrid.Dock = DockStyle.Fill;
-        _activityGrid.ReadOnly = true;
-        _activityGrid.AllowUserToAddRows = false;
-        _activityGrid.AllowUserToDeleteRows = false;
-        _activityGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        _activityGrid.MultiSelect = false;
-        _activityGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        _activityGrid = new DataGridView
+        {
+            Dock = DockStyle.Fill,
+            ReadOnly = true,
+            AllowUserToAddRows = false,
+            AllowUserToDeleteRows = false,
+            SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+            MultiSelect = false,
+            AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        };
 
         // 列の設定
         var timeColumn = new DataGridViewTextBoxColumn
@@ -175,12 +175,13 @@ public partial class MainForm : Form
     {
         _statusStrip = new StatusStrip();
 
-        _recordCountLabel = new ToolStripStatusLabel("記録数: 0 件");
-        _recordCountLabel.Spring = false;
+        _recordCountLabel = new ToolStripStatusLabel("記録数: 0 件") { Spring = false };
 
-        _lastUpdateLabel = new ToolStripStatusLabel("最終更新: 未更新");
-        _lastUpdateLabel.Spring = true;
-        _lastUpdateLabel.TextAlign = ContentAlignment.MiddleRight;
+        _lastUpdateLabel = new ToolStripStatusLabel("最終更新: 未更新")
+        {
+            Spring = true,
+            TextAlign = ContentAlignment.MiddleRight
+        };
 
         _statusStrip.Items.Add(_recordCountLabel);
         _statusStrip.Items.Add(_lastUpdateLabel);
@@ -193,7 +194,7 @@ public partial class MainForm : Form
         _refreshTimer.Start();
     }
 
-    private void OnRefreshTimer(object? sender, EventArgs e)
+    private void OnRefreshTimer(object? _, EventArgs __)
     {
         RefreshActivityGrid();
     }
@@ -275,24 +276,24 @@ public partial class MainForm : Form
         }
     }
 
-    private void OnRefreshClicked(object? sender, EventArgs e)
+    private void OnRefreshClicked(object? _, EventArgs __)
     {
         RefreshActivityGrid();
     }
 
-    private void OnClearClicked(object? sender, EventArgs e)
+    private void OnClearClicked(object? _, EventArgs __)
     {
         _activityGrid.DataSource = null;
         _recordCountLabel.Text = "記録数: - 件";
         _lastUpdateLabel.Text = "最終更新: クリア済み";
     }
 
-    private void OnHideClicked(object? sender, EventArgs e)
+    private void OnHideClicked(object? _, EventArgs __)
     {
         Hide();
     }
 
-    private void OnExitClicked(object? sender, EventArgs e)
+    private void OnExitClicked(object? _, EventArgs __)
     {
         _logger.LogInformation("User requested application exit from main form");
         System.Windows.Forms.Application.Exit();
