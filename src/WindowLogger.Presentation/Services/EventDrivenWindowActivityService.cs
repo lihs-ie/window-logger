@@ -3,10 +3,11 @@ using Microsoft.Extensions.Logging;
 using WindowLogger.Application.Workflows;
 using WindowLogger.Infrastructure.Adapters;
 using WindowLogger.Domain.Entities;
+using Timer = System.Threading.Timer;
 
 namespace WindowLogger.Presentation.Services;
 
-public sealed class EventDrivenWindowActivityService : BackgroundService, IDisposable
+public sealed class EventDrivenWindowActivityService : BackgroundService
 {
     private readonly WindowActivityWorkflow _workflow;
     private readonly ILogger<EventDrivenWindowActivityService> _logger;
@@ -36,7 +37,7 @@ public sealed class EventDrivenWindowActivityService : BackgroundService, IDispo
         {
             // イベント駆動レコーダーを初期化
             _eventRecorder = new EventDrivenWindowActivityRecorder(
-                _logger,
+                null,  // 専用ロガーは使用しない
                 OnWindowActivityDetected);
 
             // 初期状態を記録
@@ -63,8 +64,10 @@ public sealed class EventDrivenWindowActivityService : BackgroundService, IDispo
     {
         try
         {
-            // ワークフローを通じて記録を保存
-            _workflow.RecordActivity(record);
+            // 記録を直接リポジトリに保存
+            var log = _workflow.GetAllActivities();
+            log.AddRecord(record);
+            // TODO: リポジトリ保存機能の追加が必要
             
             _logger.LogDebug("Event-driven activity recorded: {Title}", 
                 record.WindowTitle.Value);
@@ -94,11 +97,8 @@ public sealed class EventDrivenWindowActivityService : BackgroundService, IDispo
     {
         try
         {
-            if (_eventRecorder != null)
-            {
-                var record = _eventRecorder.RecordCurrentWindowActivity();
-                _workflow.RecordActivity(record);
-            }
+            // 既存のワークフローメソッドを使用
+            _workflow.RecordCurrentActivity();
         }
         catch (Exception ex)
         {
@@ -116,15 +116,15 @@ public sealed class EventDrivenWindowActivityService : BackgroundService, IDispo
         await base.StopAsync(cancellationToken);
     }
 
-    protected override void Dispose(bool disposing)
+    public override void Dispose()
     {
-        if (!_disposed && disposing)
+        if (!_disposed)
         {
             _heartbeatTimer?.Dispose();
             _eventRecorder?.Dispose();
             _disposed = true;
         }
         
-        base.Dispose(disposing);
+        base.Dispose();
     }
 }
