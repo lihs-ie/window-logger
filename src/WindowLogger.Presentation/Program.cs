@@ -55,14 +55,17 @@ internal static class Program
 
         try
         {
-            // タスクトレイアイコンを初期化
+            // メインフォームを取得・表示
+            var mainForm = host.Services.GetRequiredService<MainForm>();
+            
+            // タスクトレイアイコンを初期化（最小化時に使用）
             var trayIcon = host.Services.GetRequiredService<WindowLoggerTrayIcon>();
 
             // バックグラウンドサービスを開始
             await host.StartAsync();
 
-            // Windows Formsメッセージループを開始
-            System.Windows.Forms.Application.Run();
+            // メインフォームを表示してWindows Formsメッセージループを開始
+            System.Windows.Forms.Application.Run(mainForm);
         }
         catch (Exception ex)
         {
