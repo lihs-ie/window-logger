@@ -4,7 +4,7 @@ using WindowLogger.Domain.Entities;
 
 namespace WindowLogger.Application.Workflows;
 
-public sealed class WindowActivityWorkflow
+public sealed class WindowActivityWorkflow : IWindowActivityWorkflow
 {
     private readonly IWindowActivityRecorder _recorder;
     private readonly IWindowActivityRepository _repository;

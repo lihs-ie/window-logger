@@ -7,7 +7,7 @@ namespace WindowLogger.Presentation.Forms;
 
 public partial class MainForm : Form
 {
-    private readonly WindowActivityWorkflow _workflow;
+    private readonly IWindowActivityWorkflow _workflow;
     private readonly FileHtmlExporter _htmlExporter;
     private readonly ILogger<MainForm> _logger;
     private readonly System.Windows.Forms.Timer _refreshTimer;
@@ -24,7 +24,7 @@ public partial class MainForm : Form
     private const int REFRESH_INTERVAL_MS = 2000; // 2秒間隔でUI更新
 
     public MainForm(
-        WindowActivityWorkflow workflow,
+        IWindowActivityWorkflow workflow,
         FileHtmlExporter htmlExporter,
         ILogger<MainForm> logger)
     {

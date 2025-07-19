@@ -35,7 +35,7 @@ internal static class Program
             });
 
             // Applicationレイヤー
-            services.AddSingleton<WindowActivityWorkflow>();
+            services.AddSingleton<IWindowActivityWorkflow, WindowActivityWorkflow>();
 
             // Infrastructureレイヤー
             services.AddSingleton<IWindowActivityRecorder, WindowsApiWindowActivityRecorder>();

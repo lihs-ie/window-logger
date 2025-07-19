@@ -234,6 +234,7 @@ dotnet test --logger trx                    # テスト結果をTRX形式で出�
 
 **重要: gitへのpush前に必ず以下のフローを実行してください**
 
+#### Windows環境の場合
 ```bash
 # 1. 依存関係復元
 dotnet restore
@@ -251,11 +252,31 @@ dotnet format --verify-no-changes
 git push origin main
 ```
 
+#### macOS/Linux環境の場合
+```bash
+# 1. 依存関係復元
+dotnet restore
+
+# 2. ビルド確認（全プロジェクト）
+dotnet build --configuration Release
+
+# 3. テスト実行（Windows Forms以外）
+dotnet test tests/WindowLogger.Domain.Tests/ --configuration Release --verbosity normal
+dotnet test tests/WindowLogger.Application.Tests/ --configuration Release --verbosity normal
+dotnet test tests/WindowLogger.Infrastructure.Tests/ --configuration Release --verbosity normal
+
+# 4. フォーマット確認
+dotnet format --verify-no-changes
+
+# 5. 上記すべて成功後にpush
+git push origin main
+```
+
 **注意事項:**
 - ビルドエラーやテスト失敗がある場合は修正してから再実行
 - フォーマットエラーがある場合は `dotnet format` で修正
-- Windows専用機能のテストはWindows環境でのみ実行
-- macOS/Linux環境では一部テストがスキップされる場合があります
+- Windows専用機能（WindowLogger.Presentation）のテストはWindows環境でのみ実行
+- macOS/Linux環境ではWindows Formsテストは除外してください
 
 ## プロジェクト固有の注意事項
 

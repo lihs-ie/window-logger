@@ -14,19 +14,16 @@ namespace WindowLogger.Presentation.Tests.Forms;
 
 public sealed class MainFormTests : IDisposable
 {
-    private readonly Mock<WindowActivityWorkflow> _mockWorkflow;
-    private readonly Mock<FileHtmlExporter> _mockHtmlExporter;
+    private readonly Mock<IWindowActivityWorkflow> _mockWorkflow;
+    private readonly FileHtmlExporter _htmlExporter;
     private readonly Mock<ILogger<MainForm>> _mockLogger;
     private MainForm? _mainForm;
 
     public MainFormTests()
     {
-        // コンストラクタパラメータが必要なので、Mockを適切に設定
-        _mockWorkflow = new Mock<WindowActivityWorkflow>(
-            Mock.Of<IWindowActivityRecorder>(),
-            Mock.Of<IWindowActivityRepository>(),
-            Mock.Of<IHtmlExporter>());
-        _mockHtmlExporter = new Mock<FileHtmlExporter>();
+        // インターフェースを使用してMockを作成
+        _mockWorkflow = new Mock<IWindowActivityWorkflow>();
+        _htmlExporter = new FileHtmlExporter(); // 実際のインスタンスを使用（テスト用の一時ディレクトリ）
         _mockLogger = new Mock<ILogger<MainForm>>();
     }
 
@@ -181,7 +178,7 @@ public sealed class MainFormTests : IDisposable
     private void CreateMainForm()
     {
         _mainForm?.Dispose();
-        _mainForm = new MainForm(_mockWorkflow.Object, _mockHtmlExporter.Object, _mockLogger.Object);
+        _mainForm = new MainForm(_mockWorkflow.Object, _htmlExporter, _mockLogger.Object);
     }
 
     public void Dispose()

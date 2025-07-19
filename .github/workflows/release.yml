@@ -28,7 +28,9 @@ jobs:
       run: dotnet restore ${{ env.SOLUTION_PATH }}
 
     - name: Run tests
-      run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-restore --verbosity normal
+      run: |
+        # Windows環境なので全テスト実行可能
+        dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-restore --verbosity normal
 
     - name: Build application
       run: |
