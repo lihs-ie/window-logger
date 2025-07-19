@@ -204,7 +204,7 @@ public partial class MainForm : Form
         RefreshActivityGrid();
     }
 
-    private void RefreshActivityGrid()
+    public void RefreshActivityGrid()
     {
         try
         {

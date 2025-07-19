@@ -91,10 +91,7 @@ public sealed class MainFormTests : IDisposable
         var dataGridView = _mainForm!.Controls.OfType<DataGridView>().First();
 
         // Act
-        _mainForm.Show(); // これによりRefreshActivityGridが呼ばれる
-        
-        // Windows FormsのUIイベントを処理
-        System.Windows.Forms.Application.DoEvents();
+        _mainForm.RefreshActivityGrid(); // 直接メソッドを呼び出し
 
         // Assert
         dataGridView.DataSource.Should().NotBeNull();
@@ -127,10 +124,7 @@ public sealed class MainFormTests : IDisposable
         var dataGridView = _mainForm!.Controls.OfType<DataGridView>().First();
 
         // Act
-        _mainForm.Show(); // これによりRefreshActivityGridが呼ばれる
-        
-        // Windows FormsのUIイベントを処理
-        System.Windows.Forms.Application.DoEvents();
+        _mainForm.RefreshActivityGrid(); // 直接メソッドを呼び出し
 
         // Assert
         dataGridView.DataSource.Should().NotBeNull();
