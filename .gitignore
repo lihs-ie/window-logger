@@ -1,0 +1,103 @@
+# .NET Core / .NET Framework build outputs
+bin/
+obj/
+*.dll
+*.pdb
+*.exe
+*.cache
+
+# Visual Studio temporary files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# MSTest test results
+TestResults/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# NuGet packages
+*.nupkg
+**/packages/*
+!**/packages/build/
+*.nuget.props
+*.nuget.targets
+.nuget/
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Test Coverage
+*.coverage
+*.coveragexml
+TestResult.xml
+coverage/
+
+# Logs
+*.log
+logs/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Application specific
+# WindowLoggerの出力HTMLファイル（必要に応じて）
+# *.html
+
+# Environment variables and secrets
+.env
+.env.local
+.env.production
+appsettings.Development.json
+appsettings.Production.json
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+
+# Windows specific
+$RECYCLE.BIN/
+Desktop.ini
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Claude settings (already ignored but explicitly added)
+.claude/settings.local.json
