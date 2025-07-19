@@ -107,9 +107,9 @@ public sealed class MainFormTests : IDisposable
         // CI環境でもローカル環境でも動作する検証
         // DataSourceが設定されているかの検証は環境に依存するため、
         // 代わりにWorkflowから返されるデータが正しく処理されているかを検証
-        var log = _mockWorkflow.Object.GetAllActivities();
-        log.Should().NotBeNull();
-        log.RecordCount.Should().Be(0);
+        var resultLog = _mockWorkflow.Object.GetAllActivities();
+        resultLog.Should().NotBeNull();
+        resultLog.RecordCount.Should().Be(0);
         
         _mainForm.Hide(); // テスト終了後にフォームを隠す
     }
@@ -153,9 +153,9 @@ public sealed class MainFormTests : IDisposable
         // CI環境でもローカル環境でも動作する検証
         // DataSourceが設定されているかの検証は環境に依存するため、
         // 代わりにWorkflowから返されるデータが正しく処理されているかを検証
-        var log = _mockWorkflow.Object.GetAllActivities();
-        log.Should().NotBeNull();
-        log.RecordCount.Should().Be(2);
+        var resultLog = _mockWorkflow.Object.GetAllActivities();
+        resultLog.Should().NotBeNull();
+        resultLog.RecordCount.Should().Be(2);
         
         _mainForm.Hide(); // テスト終了後にフォームを隠す
     }
