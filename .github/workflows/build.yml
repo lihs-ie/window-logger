@@ -32,6 +32,17 @@ jobs:
     - name: Run tests
       run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage"
 
+    - name: Publish executable
+      run: dotnet publish src/WindowLogger.Presentation/WindowLogger.Presentation.csproj --configuration Release --output ./publish --no-restore
+
+    - name: Upload executable artifact
+      uses: actions/upload-artifact@v4
+      if: success()
+      with:
+        name: WindowLogger-exe
+        path: ./publish/
+        retention-days: 30
+
     - name: Upload coverage reports
       uses: codecov/codecov-action@v3
       if: success()
