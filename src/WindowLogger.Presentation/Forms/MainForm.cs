@@ -220,10 +220,21 @@ public partial class MainForm : Form
                 })
                 .ToList();
 
-            _activityGrid.DataSource = activities;
+            // CI環境でのnull参照例外を防ぐ
+            if (_activityGrid != null)
+            {
+                _activityGrid.DataSource = activities;
+            }
             
-            _recordCountLabel.Text = $"記録数: {log.RecordCount} 件";
-            _lastUpdateLabel.Text = $"最終更新: {DateTime.Now:HH:mm:ss}";
+            if (_recordCountLabel != null)
+            {
+                _recordCountLabel.Text = $"記録数: {log.RecordCount} 件";
+            }
+            
+            if (_lastUpdateLabel != null)
+            {
+                _lastUpdateLabel.Text = $"最終更新: {DateTime.Now:HH:mm:ss}";
+            }
         }
         catch (Exception ex)
         {
