@@ -230,6 +230,33 @@ dotnet test --filter "Category=Integration" # 統合テスト実行
 dotnet test --logger trx                    # テスト結果をTRX形式で出力
 ```
 
+### Push前必須フロー
+
+**重要: gitへのpush前に必ず以下のフローを実行してください**
+
+```bash
+# 1. 依存関係復元
+dotnet restore
+
+# 2. ビルド確認（全プロジェクト）
+dotnet build --configuration Release
+
+# 3. テスト実行（全テスト）
+dotnet test --configuration Release --verbosity normal
+
+# 4. フォーマット確認
+dotnet format --verify-no-changes
+
+# 5. 上記すべて成功後にpush
+git push origin main
+```
+
+**注意事項:**
+- ビルドエラーやテスト失敗がある場合は修正してから再実行
+- フォーマットエラーがある場合は `dotnet format` で修正
+- Windows専用機能のテストはWindows環境でのみ実行
+- macOS/Linux環境では一部テストがスキップされる場合があります
+
 ## プロジェクト固有の注意事項
 
 ### Windows API 操作
