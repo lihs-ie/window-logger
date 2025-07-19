@@ -92,6 +92,9 @@ public sealed class MainFormTests : IDisposable
 
         // Act
         _mainForm.Show(); // これによりRefreshActivityGridが呼ばれる
+        
+        // Windows FormsのUIイベントを処理
+        System.Windows.Forms.Application.DoEvents();
 
         // Assert
         dataGridView.DataSource.Should().NotBeNull();
@@ -125,6 +128,9 @@ public sealed class MainFormTests : IDisposable
 
         // Act
         _mainForm.Show(); // これによりRefreshActivityGridが呼ばれる
+        
+        // Windows FormsのUIイベントを処理
+        System.Windows.Forms.Application.DoEvents();
 
         // Assert
         dataGridView.DataSource.Should().NotBeNull();
