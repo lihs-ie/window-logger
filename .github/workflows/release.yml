@@ -1,0 +1,93 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # v1.0.0, v2.1.0 などのタグがプッシュされた時に実行
+  workflow_dispatch:  # 手動実行も可能
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  PROJECT_PATH: 'src/WindowLogger.Presentation/WindowLogger.Presentation.csproj'
+  SOLUTION_PATH: 'WindowLogger.sln'
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.SOLUTION_PATH }}
+
+    - name: Run tests
+      run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-restore --verbosity normal
+
+    - name: Build application
+      run: |
+        dotnet publish ${{ env.PROJECT_PATH }} `
+          --configuration Release `
+          --runtime win-x64 `
+          --self-contained true `
+          --output ./publish `
+          -p:PublishSingleFile=true `
+          -p:IncludeNativeLibrariesForSelfExtract=true `
+          -p:PublishTrimmed=false
+
+    - name: Create ZIP package
+      run: |
+        Compress-Archive -Path ./publish/* -DestinationPath WindowLogger-win-x64.zip
+
+    - name: Get version from tag
+      id: get_version
+      run: |
+        if ($env:GITHUB_REF -match "refs/tags/(.*)") {
+          $version = $matches[1]
+        } else {
+          $version = "dev-$((Get-Date).ToString('yyyyMMdd-HHmmss'))"
+        }
+        echo "version=$version" >> $env:GITHUB_OUTPUT
+      shell: pwsh
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.get_version.outputs.version }}
+        release_name: WindowLogger ${{ steps.get_version.outputs.version }}
+        body: |
+          # WindowLogger ${{ steps.get_version.outputs.version }}
+          
+          ## ダウンロード
+          - Windows 11/10 (x64): `WindowLogger-win-x64.zip`
+          
+          ## 使い方
+          1. ZIPファイルをダウンロードして展開
+          2. `WindowLogger.Presentation.exe` を実行
+          3. タスクトレイに格納されてウィンドウアクティビティの記録開始
+          
+          ## 機能
+          - フォアグラウンドウィンドウのタイトル自動記録
+          - HTML形式での履歴エクスポート
+          - タスクトレイ常駐機能
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./WindowLogger-win-x64.zip
+        asset_name: WindowLogger-win-x64.zip
+        asset_content_type: application/zip
