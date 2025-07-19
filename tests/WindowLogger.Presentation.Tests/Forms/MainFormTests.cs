@@ -8,6 +8,7 @@ using WindowLogger.Domain.Entities;
 using WindowLogger.Domain.ValueObjects;
 using WindowLogger.Infrastructure.Exporters;
 using WindowLogger.Presentation.Forms;
+using WindowLogger.Presentation.Services;
 using Xunit;
 
 namespace WindowLogger.Presentation.Tests.Forms;
@@ -17,6 +18,7 @@ public sealed class MainFormTests : IDisposable
     private readonly Mock<IWindowActivityWorkflow> _mockWorkflow;
     private readonly FileHtmlExporter _htmlExporter;
     private readonly Mock<ILogger<MainForm>> _mockLogger;
+    private readonly Mock<IDialogService> _mockDialogService;
     private MainForm? _mainForm;
 
     public MainFormTests()
@@ -25,6 +27,7 @@ public sealed class MainFormTests : IDisposable
         _mockWorkflow = new Mock<IWindowActivityWorkflow>();
         _htmlExporter = new FileHtmlExporter(); // 実際のインスタンスを使用（テスト用の一時ディレクトリ）
         _mockLogger = new Mock<ILogger<MainForm>>();
+        _mockDialogService = new Mock<IDialogService>();
     }
 
     [Fact]
@@ -161,6 +164,8 @@ public sealed class MainFormTests : IDisposable
         
         _mockWorkflow.Setup(w => w.GetAllActivities()).Returns(log);
         _mockWorkflow.Setup(w => w.ClearAllActivities()).Verifiable();
+        _mockDialogService.Setup(d => d.ShowQuestion(It.IsAny<string>(), It.IsAny<string>()))
+                         .Returns(UserDialogResult.Yes); // ユーザーが「はい」を選択したことをシミュレート
         
         CreateMainForm();
         var toolStrip = _mainForm!.Controls.OfType<ToolStrip>().First();
@@ -173,12 +178,14 @@ public sealed class MainFormTests : IDisposable
 
         // Assert
         _mockWorkflow.Verify(w => w.ClearAllActivities(), Times.Once);
+        _mockDialogService.Verify(d => d.ShowQuestion(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        _mockDialogService.Verify(d => d.ShowInformation(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
     }
 
     private void CreateMainForm()
     {
         _mainForm?.Dispose();
-        _mainForm = new MainForm(_mockWorkflow.Object, _htmlExporter, _mockLogger.Object);
+        _mainForm = new MainForm(_mockWorkflow.Object, _htmlExporter, _mockLogger.Object, _mockDialogService.Object);
     }
 
     public void Dispose()

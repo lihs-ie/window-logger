@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging;
 using WindowLogger.Application.Workflows;
 using WindowLogger.Infrastructure.Exporters;
 using WindowLogger.Presentation.Constants;
+using WindowLogger.Presentation.Services;
 
 namespace WindowLogger.Presentation.Forms;
 
@@ -10,6 +11,7 @@ public partial class MainForm : Form
     private readonly IWindowActivityWorkflow _workflow;
     private readonly FileHtmlExporter _htmlExporter;
     private readonly ILogger<MainForm> _logger;
+    private readonly IDialogService _dialogService;
     private readonly System.Windows.Forms.Timer _refreshTimer;
 
     // UI Components
@@ -26,11 +28,13 @@ public partial class MainForm : Form
     public MainForm(
         IWindowActivityWorkflow workflow,
         FileHtmlExporter htmlExporter,
-        ILogger<MainForm> logger)
+        ILogger<MainForm> logger,
+        IDialogService dialogService)
     {
         _workflow = workflow;
         _htmlExporter = htmlExporter;
         _logger = logger;
+        _dialogService = dialogService;
 
         _refreshTimer = new System.Windows.Forms.Timer();
         
@@ -245,23 +249,19 @@ public partial class MainForm : Form
             var log = _workflow.GetAllActivities();
             if (log.RecordCount == 0)
             {
-                MessageBox.Show(
+                _dialogService.ShowInformation(
                     UserMessages.EXPORT_NO_RECORDS_MESSAGE, 
-                    UserMessages.EXPORT_NO_RECORDS_TITLE, 
-                    MessageBoxButtons.OK, 
-                    MessageBoxIcon.Information);
+                    UserMessages.EXPORT_NO_RECORDS_TITLE);
                 return;
             }
 
             var filePath = _htmlExporter.ExportToHtmlFile(log);
             
-            var result = MessageBox.Show(
+            var result = _dialogService.ShowQuestion(
                 string.Format(UserMessages.EXPORT_SUCCESS_MESSAGE_FORMAT, filePath), 
-                UserMessages.EXPORT_SUCCESS_TITLE, 
-                MessageBoxButtons.YesNo, 
-                MessageBoxIcon.Information);
+                UserMessages.EXPORT_SUCCESS_TITLE);
 
-            if (result == DialogResult.Yes)
+            if (result == UserDialogResult.Yes)
             {
                 System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
                 {
@@ -275,11 +275,9 @@ public partial class MainForm : Form
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to export activity log to HTML");
-            MessageBox.Show(
+            _dialogService.ShowError(
                 UserMessages.EXPORT_ERROR_MESSAGE, 
-                UserMessages.EXPORT_ERROR_TITLE, 
-                MessageBoxButtons.OK, 
-                MessageBoxIcon.Error);
+                UserMessages.EXPORT_ERROR_TITLE);
         }
     }
 
@@ -290,13 +288,11 @@ public partial class MainForm : Form
 
     private void OnClearClicked(object? _, EventArgs __)
     {
-        var result = MessageBox.Show(
+        var result = _dialogService.ShowQuestion(
             UserMessages.CLEAR_CONFIRMATION_MESSAGE,
-            UserMessages.CLEAR_CONFIRMATION_TITLE,
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Warning);
+            UserMessages.CLEAR_CONFIRMATION_TITLE);
 
-        if (result == DialogResult.Yes)
+        if (result == UserDialogResult.Yes)
         {
             try
             {
@@ -304,20 +300,16 @@ public partial class MainForm : Form
                 RefreshActivityGrid();
                 _logger.LogInformation("All activity logs cleared by user");
                 
-                MessageBox.Show(
+                _dialogService.ShowInformation(
                     UserMessages.CLEAR_SUCCESS_MESSAGE,
-                    UserMessages.CLEAR_SUCCESS_TITLE,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                    UserMessages.CLEAR_SUCCESS_TITLE);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Failed to clear activity logs");
-                MessageBox.Show(
+                _dialogService.ShowError(
                     UserMessages.CLEAR_ERROR_MESSAGE,
-                    UserMessages.CLEAR_ERROR_TITLE,
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                    UserMessages.CLEAR_ERROR_TITLE);
             }
         }
     }

@@ -44,6 +44,7 @@ internal static class Program
             services.AddSingleton<FileHtmlExporter>();
 
             // Presentationレイヤー
+            services.AddSingleton<IDialogService, WindowsFormsDialogService>();
             services.AddSingleton<MainForm>();
             services.AddSingleton<WindowLoggerTrayIcon>();
             services.AddHostedService<WindowActivityBackgroundService>();
