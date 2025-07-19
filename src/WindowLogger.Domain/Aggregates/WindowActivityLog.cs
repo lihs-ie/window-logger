@@ -40,4 +40,9 @@ public class WindowActivityLog
             .ToList()
             .AsReadOnly();
     }
+
+    public void ClearAllRecords()
+    {
+        _records.Clear();
+    }
 }

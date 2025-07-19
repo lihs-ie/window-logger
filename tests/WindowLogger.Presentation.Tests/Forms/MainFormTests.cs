@@ -1,6 +1,7 @@
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
+using WindowLogger.Application.Ports;
 using WindowLogger.Application.Workflows;
 using WindowLogger.Domain.Aggregates;
 using WindowLogger.Domain.Entities;
@@ -20,7 +21,11 @@ public sealed class MainFormTests : IDisposable
 
     public MainFormTests()
     {
-        _mockWorkflow = new Mock<WindowActivityWorkflow>();
+        // コンストラクタパラメータが必要なので、Mockを適切に設定
+        _mockWorkflow = new Mock<WindowActivityWorkflow>(
+            Mock.Of<IWindowActivityRecorder>(),
+            Mock.Of<IWindowActivityRepository>(),
+            Mock.Of<IHtmlExporter>());
         _mockHtmlExporter = new Mock<FileHtmlExporter>();
         _mockLogger = new Mock<ILogger<MainForm>>();
     }
@@ -143,6 +148,34 @@ public sealed class MainFormTests : IDisposable
 
         // Assert
         _mockWorkflow.Verify(w => w.GetAllActivities(), Times.AtLeastOnce);
+    }
+
+    [Fact]
+    [STAThread]
+    public void ClearButton_ShouldClearAllActivitiesWhenClicked()
+    {
+        // Arrange
+        var log = WindowActivityLog.Create();
+        var record = WindowActivityRecord.Create(
+            WindowActivityRecordIdentifier.NewId(),
+            WindowTitle.Create("Test Window"),
+            RecordedAt.Now());
+        log.AddRecord(record);
+        
+        _mockWorkflow.Setup(w => w.GetAllActivities()).Returns(log);
+        _mockWorkflow.Setup(w => w.ClearAllActivities()).Verifiable();
+        
+        CreateMainForm();
+        var toolStrip = _mainForm!.Controls.OfType<ToolStrip>().First();
+        var clearButton = toolStrip.Items.OfType<ToolStripButton>().FirstOrDefault(b => b.Text == "クリア");
+        
+        clearButton.Should().NotBeNull();
+
+        // Act
+        clearButton!.PerformClick();
+
+        // Assert
+        _mockWorkflow.Verify(w => w.ClearAllActivities(), Times.Once);
     }
 
     private void CreateMainForm()

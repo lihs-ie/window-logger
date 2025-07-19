@@ -131,6 +131,30 @@ public class WindowActivityLogTests
         records.Should().BeAssignableTo<IReadOnlyCollection<WindowActivityRecord>>();
     }
     
+    [Fact]
+    public void WindowActivityLog_全ての記録をクリアできる()
+    {
+        // Arrange
+        var log = WindowActivityLog.Create();
+        var record1 = CreateSampleRecord("App1");
+        var record2 = CreateSampleRecord("App2");
+        var record3 = CreateSampleRecord("App3");
+        
+        log.AddRecord(record1);
+        log.AddRecord(record2);
+        log.AddRecord(record3);
+        
+        log.Records.Should().HaveCount(3);
+        log.RecordCount.Should().Be(3);
+        
+        // Act
+        log.ClearAllRecords();
+        
+        // Assert
+        log.Records.Should().BeEmpty();
+        log.RecordCount.Should().Be(0);
+    }
+    
     private static WindowActivityRecord CreateSampleRecord(string applicationName = "Test App")
     {
         var id = WindowActivityRecordIdentifier.NewId();

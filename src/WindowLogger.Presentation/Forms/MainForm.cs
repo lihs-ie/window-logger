@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using WindowLogger.Application.Workflows;
 using WindowLogger.Infrastructure.Exporters;
+using WindowLogger.Presentation.Constants;
 
 namespace WindowLogger.Presentation.Forms;
 
@@ -126,7 +127,7 @@ public partial class MainForm : Form
 
         var clearButton = new ToolStripButton("クリア");
         clearButton.Click += OnClearClicked;
-        clearButton.ToolTipText = "表示をクリアします（記録は削除されません）";
+        clearButton.ToolTipText = "すべてのアクティビティログを削除します（復元不可）";
         _toolStrip.Items.Add(clearButton);
     }
 
@@ -244,16 +245,19 @@ public partial class MainForm : Form
             var log = _workflow.GetAllActivities();
             if (log.RecordCount == 0)
             {
-                MessageBox.Show("エクスポートする記録がありません。", "WindowLogger", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    UserMessages.EXPORT_NO_RECORDS_MESSAGE, 
+                    UserMessages.EXPORT_NO_RECORDS_TITLE, 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Information);
                 return;
             }
 
             var filePath = _htmlExporter.ExportToHtmlFile(log);
             
             var result = MessageBox.Show(
-                $"HTMLファイルを出力しました:\n{filePath}\n\nファイルを開きますか？", 
-                "エクスポート完了", 
+                string.Format(UserMessages.EXPORT_SUCCESS_MESSAGE_FORMAT, filePath), 
+                UserMessages.EXPORT_SUCCESS_TITLE, 
                 MessageBoxButtons.YesNo, 
                 MessageBoxIcon.Information);
 
@@ -271,8 +275,11 @@ public partial class MainForm : Form
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to export activity log to HTML");
-            MessageBox.Show("HTMLエクスポート中にエラーが発生しました。", "エラー", 
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(
+                UserMessages.EXPORT_ERROR_MESSAGE, 
+                UserMessages.EXPORT_ERROR_TITLE, 
+                MessageBoxButtons.OK, 
+                MessageBoxIcon.Error);
         }
     }
 
@@ -283,9 +290,36 @@ public partial class MainForm : Form
 
     private void OnClearClicked(object? _, EventArgs __)
     {
-        _activityGrid.DataSource = null;
-        _recordCountLabel.Text = "記録数: - 件";
-        _lastUpdateLabel.Text = "最終更新: クリア済み";
+        var result = MessageBox.Show(
+            UserMessages.CLEAR_CONFIRMATION_MESSAGE,
+            UserMessages.CLEAR_CONFIRMATION_TITLE,
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning);
+
+        if (result == DialogResult.Yes)
+        {
+            try
+            {
+                _workflow.ClearAllActivities();
+                RefreshActivityGrid();
+                _logger.LogInformation("All activity logs cleared by user");
+                
+                MessageBox.Show(
+                    UserMessages.CLEAR_SUCCESS_MESSAGE,
+                    UserMessages.CLEAR_SUCCESS_TITLE,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to clear activity logs");
+                MessageBox.Show(
+                    UserMessages.CLEAR_ERROR_MESSAGE,
+                    UserMessages.CLEAR_ERROR_TITLE,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
     }
 
     private void OnHideClicked(object? _, EventArgs __)

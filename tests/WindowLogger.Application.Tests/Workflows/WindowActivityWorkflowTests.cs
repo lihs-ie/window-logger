@@ -81,6 +81,31 @@ public sealed class WindowActivityWorkflowTests
         result.Should().Contain("Test Window");
     }
 
+    [Fact]
+    public void ClearAllActivities_ShouldRemoveAllRecords()
+    {
+        // Arrange
+        var recorder = new TestWindowActivityRecorder();
+        var repository = new TestWindowActivityRepository();
+        var workflow = new WindowActivityWorkflow(recorder, repository);
+        
+        // 複数の記録を追加
+        workflow.RecordCurrentActivity();
+        workflow.RecordCurrentActivity();
+        workflow.RecordCurrentActivity();
+        
+        var logBefore = workflow.GetAllActivities();
+        logBefore.RecordCount.Should().Be(3);
+        
+        // Act
+        workflow.ClearAllActivities();
+        
+        // Assert
+        var logAfter = workflow.GetAllActivities();
+        logAfter.RecordCount.Should().Be(0);
+        logAfter.Records.Should().BeEmpty();
+    }
+
     private sealed class TestWindowActivityRecorder : IWindowActivityRecorder
     {
         public WindowActivityRecord RecordCurrentWindowActivity()

@@ -49,4 +49,11 @@ public sealed class WindowActivityWorkflow
         var log = _repository.LoadWindowActivityLog();
         return _htmlExporter.ExportToHtml(log);
     }
+
+    public void ClearAllActivities()
+    {
+        var log = _repository.LoadWindowActivityLog();
+        log.ClearAllRecords();
+        _repository.SaveWindowActivityLog(log);
+    }
 }
